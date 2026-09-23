@@ -1,0 +1,51 @@
+benchmark:
+  id: tfim-mitiq-zne-n4-h1-v0
+  model: transverse_field_ising
+
+problem:
+  n_qubits: 4
+  J: 1.0
+  h: 1.0
+  boundary: open
+
+ansatz:
+  family: afriqbench_hardware_efficient_ry_cx
+  reps: 2
+  parameter_source: results/ideal_quantum_n4_h1_baseline.json
+
+sampling:
+  shots_per_term: 20000
+  seed: 12345
+
+unmitigated_execution:
+  type: qiskit_aer_synthetic_noise
+  single_qubit_error: 0.001
+  two_qubit_error: 0.01
+  readout_error: 0.01
+
+zne:
+  implementation: mitiq
+  scaling_method: fold_global
+  scale_factors: [1.0, 2.0, 3.0]
+  extrapolation: LinearFactory
+  report_fit_diagnostics: true
+
+optional_device_derived_validation:
+  enabled_by_default: false
+  device_id: fake_manila
+
+report:
+  - unmitigated_energy
+  - mitigated_energy
+  - exact_reference_energy
+  - unmitigated_absolute_error
+  - mitigated_absolute_error
+  - improvement_factor
+  - mitigation_success
+  - shot_overhead_factor
+  - logical_operation_overhead_factor
+
+notes: >
+  ZNE is reported as a companion analysis and is not part of the canonical
+  unmitigated benchmark score. Improvement is evaluated against the exact
+  small-system reference and is never assumed a priori.
