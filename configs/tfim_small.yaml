@@ -1,0 +1,26 @@
+benchmark:
+  id: tfim-ground-state-small-v0
+  model: transverse_field_ising
+  version: 0
+
+problem:
+  n_qubits: [2, 3, 4]
+  J: 1.0
+  h: [0.5, 1.0, 1.5]
+  boundary: open
+
+reference:
+  method: exact_diagonalization
+
+metrics:
+  - absolute_energy_error
+  - observable_error
+
+resources:
+  - circuit_depth
+  - two_qubit_gate_count
+  - shots
+
+notes: >
+  Draft application-stage configuration. Quantum execution and Metriq-specific
+  schema fields will be aligned with the current upstream metriq-gym API.
