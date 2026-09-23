@@ -1,12 +1,14 @@
-# Planned AfriQBench Notebooks
+# AfriQBench Notebooks
 
-The MVP is expected to include the following executable notebooks:
+## Implemented
 
-1. `01_exact_tfim_reference.ipynb`  
-   Exact diagonalization and reference observables.
+1. **`01_exact_tfim_reference.ipynb`**  
+   Exact diagonalization, ground-state energy, transverse magnetization, nearest-neighbour correlation, and reference-data generation.
 
-2. `02_ideal_quantum_benchmark.ipynb`  
-   Canonical ideal-simulator benchmark workflow.
+2. **`02_ideal_quantum_benchmark.ipynb`**  
+   Reproducible two-layer TFIM variational circuit, exact statevector evaluation, finite-shot Qiskit Aer measurement, uncertainty estimation, and raw circuit-resource metrics.
+
+## Planned
 
 3. `03_noisy_simulation.ipynb`  
    Noise-aware execution and observable error analysis.
@@ -17,4 +19,16 @@ The MVP is expected to include the following executable notebooks:
 5. `05_mitiq_error_mitigation.ipynb`  
    Companion analysis comparing raw, mitigated, and exact results.
 
-The notebooks will be added as the benchmark interface stabilizes.
+## Installation
+
+For Notebook 01:
+
+```bash
+python -m pip install -e ".[notebook]"
+```
+
+For Notebook 02 and later quantum notebooks:
+
+```bash
+python -m pip install -e ".[quantum,notebook]"
+```
