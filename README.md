@@ -159,7 +159,7 @@ print("Ground-state energy:", energy)
 
 ## Project Status
 
-AfriQBench is currently at the **application-stage MVP**. The repository begins with executable classical reference code and tests so that technical development starts from a reproducible baseline.
+AfriQBench is currently at the **application-stage MVP**. Two executable benchmark layers are now implemented: (1) exact TFIM classical reference calculations and (2) an ideal Qiskit/Aer quantum benchmark with a reproducible variational circuit, finite-shot Hamiltonian measurement, uncertainty estimation, and resource reporting.
 
 ## Open Source
 
