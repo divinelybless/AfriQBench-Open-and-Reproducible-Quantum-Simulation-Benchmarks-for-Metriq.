@@ -21,6 +21,7 @@ dependencies = [
 quantum = [
   "qiskit[qasm3-import]>=1.4.3,<3.0",
   "qiskit-aer>=0.17.1,<0.18.0",
+  "qiskit-ibm-runtime>=0.41.1,<0.50.0",
   "scipy>=1.16.2,<2.0"
 ]
 notebook = [
