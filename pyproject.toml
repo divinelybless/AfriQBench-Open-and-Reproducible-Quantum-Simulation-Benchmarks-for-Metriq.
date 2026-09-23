@@ -18,6 +18,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+quantum = [
+  "qiskit[qasm3-import]>=1.4.3,<3.0",
+  "qiskit-aer>=0.17.1,<0.18.0",
+  "scipy>=1.16.2,<2.0"
+]
+notebook = [
+  "pandas>=2.0",
+  "matplotlib>=3.8",
+  "ipykernel>=6.0"
+]
 dev = [
   "pytest>=8",
   "ruff>=0.6"
