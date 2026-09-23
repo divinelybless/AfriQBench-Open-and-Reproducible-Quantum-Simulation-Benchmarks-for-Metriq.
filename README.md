@@ -159,7 +159,7 @@ print("Ground-state energy:", energy)
 
 ## Project Status
 
-AfriQBench is currently at the **application-stage MVP**. Two executable benchmark layers are now implemented: (1) exact TFIM classical reference calculations and (2) an ideal Qiskit/Aer quantum benchmark with a reproducible variational circuit, finite-shot Hamiltonian measurement, uncertainty estimation, and resource reporting.
+AfriQBench is currently at the **application-stage MVP**. Three executable benchmark layers are implemented: (1) exact TFIM classical references, (2) an ideal Qiskit/Aer quantum benchmark with finite-shot Hamiltonian measurement and resource reporting, and (3) a controlled noisy-Aer benchmark that separates shot uncertainty from explicit single-qubit, two-qubit, and readout noise.
 
 ## Open Source
 
