@@ -8,13 +8,13 @@
 2. **`02_ideal_quantum_benchmark.ipynb`**  
    Reproducible two-layer TFIM variational circuit, exact statevector evaluation, finite-shot Qiskit Aer measurement, uncertainty estimation, and raw circuit-resource metrics.
 
+3. **`03_noisy_simulation.ipynb`**  
+   Controlled single-qubit, two-qubit, and readout noise; finite-shot uncertainty; noise sweeps; term-level diagnostics; and structured noisy benchmark outputs.
+
 ## Planned
 
-3. `03_noisy_simulation.ipynb`  
-   Noise-aware execution and observable error analysis.
-
 4. `04_cross_backend_comparison.ipynb`  
-   Reproducible comparison across supported execution targets.
+   Reproducible comparison across supported execution targets, including device-derived local noise where practical.
 
 5. `05_mitiq_error_mitigation.ipynb`  
    Companion analysis comparing raw, mitigated, and exact results.
@@ -27,7 +27,7 @@ For Notebook 01:
 python -m pip install -e ".[notebook]"
 ```
 
-For Notebook 02 and later quantum notebooks:
+For quantum notebooks:
 
 ```bash
 python -m pip install -e ".[quantum,notebook]"
