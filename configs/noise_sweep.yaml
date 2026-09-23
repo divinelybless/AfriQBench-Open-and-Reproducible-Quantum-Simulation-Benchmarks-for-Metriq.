@@ -1,0 +1,46 @@
+benchmark:
+  id: tfim-noise-sweep-n4-h1-v0
+  model: transverse_field_ising
+  execution: qiskit_aer_controlled_noise
+
+problem:
+  n_qubits: 4
+  J: 1.0
+  h: 1.0
+  boundary: open
+
+ansatz:
+  family: afriqbench_hardware_efficient_ry_cx
+  reps: 2
+  parameter_source: results/ideal_quantum_n4_h1_baseline.json
+
+sampling:
+  shots_per_term: 20000
+  seed: 12345
+
+noise_sweep:
+  - label: ideal_control
+    single_qubit_error: 0.0
+    two_qubit_error: 0.0
+    readout_error: 0.0
+  - label: low
+    single_qubit_error: 0.0005
+    two_qubit_error: 0.005
+    readout_error: 0.005
+  - label: moderate
+    single_qubit_error: 0.001
+    two_qubit_error: 0.01
+    readout_error: 0.01
+  - label: elevated
+    single_qubit_error: 0.002
+    two_qubit_error: 0.02
+    readout_error: 0.02
+
+metrics:
+  - absolute_energy_error
+  - relative_energy_error
+  - reported_statistical_uncertainty
+
+notes: >
+  This is a transparent synthetic noise sweep for controlled benchmarking.
+  It is not intended to represent any specific physical quantum processor.
