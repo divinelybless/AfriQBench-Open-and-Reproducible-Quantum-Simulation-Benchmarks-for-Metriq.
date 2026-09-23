@@ -11,10 +11,10 @@
 3. **`03_noisy_simulation.ipynb`**  
    Controlled single-qubit, two-qubit, and readout noise; finite-shot uncertainty; noise sweeps; term-level diagnostics; and structured noisy benchmark outputs.
 
-## Planned
+4. **`04_cross_backend_comparison.ipynb`**  
+   Side-by-side comparison of ideal Aer, controlled synthetic noise, and device-derived Aer noise from a cached IBM fake backend. Includes post-transpilation resource metrics and software-version capture.
 
-4. `04_cross_backend_comparison.ipynb`  
-   Reproducible comparison across supported execution targets, including device-derived local noise where practical.
+## Planned
 
 5. `05_mitiq_error_mitigation.ipynb`  
    Companion analysis comparing raw, mitigated, and exact results.
