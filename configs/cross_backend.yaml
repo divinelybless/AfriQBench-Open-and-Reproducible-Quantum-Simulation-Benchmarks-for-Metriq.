@@ -1,0 +1,50 @@
+benchmark:
+  id: tfim-cross-backend-n4-h1-v0
+  model: transverse_field_ising
+
+problem:
+  n_qubits: 4
+  J: 1.0
+  h: 1.0
+  boundary: open
+
+ansatz:
+  family: afriqbench_hardware_efficient_ry_cx
+  reps: 2
+  parameter_source: results/ideal_quantum_n4_h1_baseline.json
+
+sampling:
+  shots_per_term: 20000
+  seed: 12345
+
+execution_targets:
+  ideal:
+    type: qiskit_aer
+    backend: aer_simulator
+
+  controlled_noise:
+    type: qiskit_aer_synthetic_noise
+    single_qubit_error: 0.001
+    two_qubit_error: 0.01
+    readout_error: 0.01
+
+  device_derived:
+    type: qiskit_aer_from_fake_backend
+    device_id: fake_manila
+    optimization_level: 1
+
+metrics:
+  - absolute_energy_error
+  - relative_energy_error
+  - reported_statistical_uncertainty
+  - raw_circuit_depth
+  - raw_two_qubit_gate_count
+  - transpiled_circuit_depth
+  - transpiled_two_qubit_gate_count
+
+notes: >
+  The fake_manila target is a compact cached device snapshot suitable for the
+  four-qubit MVP. The implementation resolves aliases through
+  FakeProviderForBackendV2 and constructs device-derived noise using
+  AerSimulator.from_backend, mirroring the public local-provider mechanism
+  used by metriq-gym.
