@@ -14,10 +14,8 @@
 4. **`04_cross_backend_comparison.ipynb`**  
    Side-by-side comparison of ideal Aer, controlled synthetic noise, and device-derived Aer noise from a cached IBM fake backend. Includes post-transpilation resource metrics and software-version capture.
 
-## Planned
-
-5. `05_mitiq_error_mitigation.ipynb`  
-   Companion analysis comparing raw, mitigated, and exact results.
+5. **`05_mitiq_error_mitigation.ipynb`**  
+   Mitiq zero-noise extrapolation with visible scale-factor data, explicit success/failure assessment, fit diagnostics, shot overhead, and logical-circuit overhead. Device-derived ZNE is included as an optional extension.
 
 ## Installation
 
@@ -27,8 +25,14 @@ For Notebook 01:
 python -m pip install -e ".[notebook]"
 ```
 
-For quantum notebooks:
+For Notebooks 02–04:
 
 ```bash
 python -m pip install -e ".[quantum,notebook]"
+```
+
+For Notebook 05, use Python 3.11 or 3.12 (Python 3.12 recommended):
+
+```bash
+python -m pip install -e ".[quantum,mitigation,notebook]"
 ```
