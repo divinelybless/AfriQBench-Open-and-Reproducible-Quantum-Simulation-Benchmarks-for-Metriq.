@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "afriqbench"
+version = "0.1.0.dev0"
+description = "Open and reproducible quantum simulation benchmarks for the Metriq ecosystem"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "Dorcas Attuabea Addo"}
+]
+dependencies = [
+  "numpy>=1.26",
+  "pyyaml>=6.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "ruff>=0.6"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
