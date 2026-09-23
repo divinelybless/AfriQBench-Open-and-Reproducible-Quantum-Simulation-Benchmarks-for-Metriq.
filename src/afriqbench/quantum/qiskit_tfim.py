@@ -1,4 +1,4 @@
-"""Qiskit utilities for the ideal TFIM quantum benchmark."""
+"""Qiskit utilities for the TFIM quantum benchmark."""
 
 from __future__ import annotations
 
@@ -165,37 +165,32 @@ def _expectation_from_counts(
     return expectation, sqrt(variance_of_mean)
 
 
-def estimate_tfim_energy_aer(
+def estimate_tfim_energy_backend(
     circuit,
+    backend,
     n_qubits: int,
     J: float = 1.0,
     h: float = 1.0,
     periodic: bool = False,
     shots: int = 20_000,
     seed: int = 12345,
+    optimization_level: int = 0,
 ) -> dict[str, Any]:
-    """Estimate TFIM energy with finite-shot measurements on Qiskit Aer.
+    """Estimate TFIM energy from finite-shot measurements on a Qiskit backend.
 
-    ZZ terms are measured in the computational basis. X terms are measured
-    after a Hadamard basis rotation. Each Pauli term is sampled independently.
+    Each Hamiltonian term is measured independently. A deterministic but
+    distinct simulator seed is used for each term to avoid reusing the same
+    pseudo-random stream across all observables.
     """
     _, transpile, _, _, _ = _require_qiskit()
-
-    try:
-        from qiskit_aer import AerSimulator
-    except ImportError as exc:
-        raise ImportError(
-            "Finite-shot ideal simulation requires qiskit-aer. "
-            "Install with: pip install -e \".[quantum]\""
-        ) from exc
 
     if shots < 1:
         raise ValueError("shots must be positive")
 
-    backend = AerSimulator()
     term_results: list[dict[str, Any]] = []
     energy = 0.0
     energy_variance = 0.0
+    term_index = 0
 
     zz_pairs = [(i, i + 1) for i in range(n_qubits - 1)]
     if periodic and n_qubits > 2:
@@ -207,13 +202,14 @@ def estimate_tfim_energy_aer(
         compiled = transpile(
             measurement,
             backend,
-            optimization_level=0,
+            optimization_level=optimization_level,
             seed_transpiler=seed,
         )
+        run_seed = seed + term_index
         counts = backend.run(
             compiled,
             shots=shots,
-            seed_simulator=seed,
+            seed_simulator=run_seed,
         ).result().get_counts()
 
         value, uncertainty = _expectation_from_counts(counts, (i, j))
@@ -227,8 +223,10 @@ def estimate_tfim_energy_aer(
                 "coefficient": coefficient,
                 "expectation": value,
                 "uncertainty": uncertainty,
+                "seed": run_seed,
             }
         )
+        term_index += 1
 
     for i in range(n_qubits):
         measurement = circuit.copy()
@@ -237,13 +235,14 @@ def estimate_tfim_energy_aer(
         compiled = transpile(
             measurement,
             backend,
-            optimization_level=0,
+            optimization_level=optimization_level,
             seed_transpiler=seed,
         )
+        run_seed = seed + term_index
         counts = backend.run(
             compiled,
             shots=shots,
-            seed_simulator=seed,
+            seed_simulator=run_seed,
         ).result().get_counts()
 
         value, uncertainty = _expectation_from_counts(counts, (i,))
@@ -257,16 +256,54 @@ def estimate_tfim_energy_aer(
                 "coefficient": coefficient,
                 "expectation": value,
                 "uncertainty": uncertainty,
+                "seed": run_seed,
             }
         )
+        term_index += 1
 
     return {
         "energy": float(energy),
         "uncertainty": float(sqrt(energy_variance)),
         "shots_per_term": int(shots),
         "seed": int(seed),
+        "optimization_level": int(optimization_level),
         "terms": term_results,
     }
+
+
+def estimate_tfim_energy_aer(
+    circuit,
+    n_qubits: int,
+    J: float = 1.0,
+    h: float = 1.0,
+    periodic: bool = False,
+    shots: int = 20_000,
+    seed: int = 12345,
+) -> dict[str, Any]:
+    """Estimate TFIM energy with finite-shot measurements on ideal Qiskit Aer."""
+    try:
+        from qiskit_aer import AerSimulator
+    except ImportError as exc:
+        raise ImportError(
+            "Finite-shot ideal simulation requires qiskit-aer. "
+            "Install with: pip install -e \".[quantum]\""
+        ) from exc
+
+    backend = AerSimulator()
+    result = estimate_tfim_energy_backend(
+        circuit=circuit,
+        backend=backend,
+        n_qubits=n_qubits,
+        J=J,
+        h=h,
+        periodic=periodic,
+        shots=shots,
+        seed=seed,
+        optimization_level=0,
+    )
+    result["backend"] = "aer_simulator"
+    result["noise_model"] = None
+    return result
 
 
 def circuit_resource_metrics(circuit) -> dict[str, Any]:
