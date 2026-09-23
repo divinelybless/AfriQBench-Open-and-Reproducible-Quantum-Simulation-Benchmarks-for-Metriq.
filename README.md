@@ -159,7 +159,7 @@ print("Ground-state energy:", energy)
 
 ## Project Status
 
-AfriQBench is currently at the **application-stage MVP**. Four executable benchmark layers are implemented: (1) exact TFIM classical references, (2) ideal finite-shot Qiskit/Aer execution, (3) controlled noisy-Aer sensitivity analysis, and (4) cross-backend comparison using ideal Aer, controlled noise, and device-derived Aer noise from cached IBM fake-backend snapshots. The device-derived pathway mirrors the public local-simulation mechanism used by current Metriq-Gym.
+AfriQBench is currently at the **application-stage MVP**. Five executable benchmark layers are implemented: (1) exact TFIM classical references, (2) ideal finite-shot Qiskit/Aer execution, (3) controlled noisy-Aer sensitivity analysis, (4) cross-backend comparison using cached device-derived noise, and (5) a Mitiq zero-noise-extrapolation companion analysis that reports both mitigation quality and execution overhead. The raw unmitigated result remains the canonical benchmark output.
 
 ## Open Source
 
