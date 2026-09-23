@@ -1,0 +1,45 @@
+{
+  "$id": "metriq-gym/tfim_energy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transverse-Field Ising Model Energy (TFIM Energy)",
+  "description": "Application-oriented four-qubit TFIM energy benchmark using a fixed reproducible variational ansatz and seven Pauli-term measurement circuits.",
+  "type": "object",
+  "properties": {
+    "benchmark_name": {
+      "type": "string",
+      "const": "TFIM Energy",
+      "description": "Name of the benchmark. Must be 'TFIM Energy' for this schema."
+    },
+    "shots": {
+      "type": "integer",
+      "description": "Number of measurement shots for each Hamiltonian-term circuit.",
+      "default": 8192,
+      "minimum": 1,
+      "examples": [
+        8192,
+        20000
+      ]
+    },
+    "num_qubits": {
+      "type": "integer",
+      "const": 4,
+      "default": 4,
+      "description": "Fixed number of qubits in the MVP TFIM benchmark."
+    },
+    "coupling_j": {
+      "type": "number",
+      "const": 1,
+      "default": 1,
+      "description": "Fixed nearest-neighbour Ising coupling J."
+    },
+    "field_h": {
+      "type": "number",
+      "const": 1,
+      "default": 1,
+      "description": "Fixed transverse-field strength h."
+    }
+  },
+  "required": [
+    "benchmark_name"
+  ]
+}
