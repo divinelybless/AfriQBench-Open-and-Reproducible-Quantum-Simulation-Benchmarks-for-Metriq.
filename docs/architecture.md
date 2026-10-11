@@ -43,3 +43,16 @@ Metriq-specific execution and result interfaces should follow the current upstre
 ### 5. Report both scientific and computational performance
 
 Application-level error alone is not sufficient. AfriQBench also records circuit and execution resources.
+
+## Code layout
+
+The source tree follows the benchmark pipeline:
+
+1. `models` defines the TFIM Hamiltonian.
+2. `reference` computes the exact ground state.
+3. `observables` and `metrics` turn that state into the score.
+4. `quantum/qiskit_tfim.py` builds the fixed circuit.
+5. `quantum/noise.py`, `cross_backend.py`, and `mitigation.py` add the simulator studies.
+6. `quantum/hardware/` checks the same circuit locally, then submits it to IBM.
+
+Notebooks `01` through `06` follow that same order. `metriq_proposal/` keeps the upstream file layout required by Metriq-Gym.

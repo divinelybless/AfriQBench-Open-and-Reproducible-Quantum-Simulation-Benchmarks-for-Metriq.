@@ -27,4 +27,13 @@ python -m pip install -e ".[dev]"
 pytest
 ```
 
+The quantum layers, including the hardware local check, need the quantum extra:
+
+```bash
+python -m pip install -e ".[dev,quantum,notebook]"
+python scripts/run_ibm_hardware.py
+```
+
+That command checks the fixed four-qubit exam and does not submit an IBM job. Add `--run` only when a hardware scorecard is intended.
+
 Contributors should add or update tests when changing scientific reference calculations, metrics, configuration parsing, or execution behavior.

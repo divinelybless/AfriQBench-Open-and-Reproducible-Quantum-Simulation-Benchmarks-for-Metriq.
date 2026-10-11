@@ -127,14 +127,24 @@ using open-source tooling such as Mitiq while also reporting the additional exec
 
 ```text
 AfriQBench/
-├── configs/
-├── docs/
-├── notebooks/
+├── configs/                 # frozen problem settings
 ├── src/afriqbench/
-│   ├── models/
-│   ├── reference/
-│   └── metrics.py
+│   ├── models/              # TFIM Hamiltonian
+│   ├── reference/           # exact diagonalization
+│   ├── observables.py
+│   ├── metrics.py
+│   └── quantum/             # execution, in benchmark order
+│       ├── qiskit_tfim.py
+│       ├── noise.py
+│       ├── cross_backend.py
+│       ├── mitigation.py
+│       └── hardware/        # local check, then IBM submission
+├── scripts/run_ibm_hardware.py
+├── notebooks/               # 01 exact → 06 IBM hardware
 ├── tests/
+├── results/                 # stored answer keys; hardware runs stay local
+├── docs/
+├── metriq_proposal/         # upstream Metriq-Gym bundle
 └── .github/workflows/
 ```
 
