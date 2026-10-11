@@ -114,7 +114,8 @@ def test_plot_writes_the_scorecard_figure(tmp_path: Path):
 
 def test_local_preflight_matches_the_stored_answer_keys(tmp_path: Path):
     pytest.importorskip("qiskit")
-    from afriqbench.quantum.hardware import run_local_preflight, save_scorecard
+    from afriqbench.quantum.hardware import run_local_preflight
+    from afriqbench.quantum.hardware.scorecard import write_json
 
     scorecard = run_local_preflight()
 
@@ -124,10 +125,10 @@ def test_local_preflight_matches_the_stored_answer_keys(tmp_path: Path):
     assert scorecard["resources"]["raw"]["two_qubit_gate_count"] == 6
     assert len(scorecard["terms"]) == 7
 
-    json_path, figure_path = save_scorecard(scorecard, tmp_path)
+    json_path = tmp_path / "preflight.json"
+    write_json(json_path, scorecard)
     payload = json.loads(json_path.read_text())
     assert payload["references"]["exact_ground_state_energy"] == EXACT_ENERGY
-    assert figure_path.is_file()
 
 
 def _sample_scorecard(energy: float, shots: int) -> dict:
