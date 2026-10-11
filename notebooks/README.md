@@ -17,6 +17,9 @@
 5. **`05_mitiq_error_mitigation.ipynb`**  
    Mitiq zero-noise extrapolation with visible scale-factor data, explicit success/failure assessment, fit diagnostics, shot overhead, and logical-circuit overhead. Device-derived ZNE is included as an optional extension.
 
+6. **`06_ibm_hardware_benchmark.ipynb`**  
+   The fixed four-qubit exam on IBM hardware: exact and ideal-circuit answer keys, energy and shot-uncertainty formulas, a local preflight, and an optional Sampler submission that records energy error, shots, compiled depth, and two-qubit gate count.
+
 ## Installation
 
 For Notebook 01:
@@ -30,6 +33,8 @@ For Notebooks 02–04:
 ```bash
 python -m pip install -e ".[quantum,notebook]"
 ```
+
+For Notebook 06, use the same quantum install. Put `QISKIT_IBM_TOKEN`, `QISKIT_IBM_INSTANCE`, and `QISKIT_IBM_CHANNEL` in a `.env` file before setting `RUN_HARDWARE = True`.
 
 For Notebook 05, use Python 3.11 or 3.12 (Python 3.12 recommended):
 
